@@ -25,10 +25,12 @@ pid_t child_pid;
 void parentTask();
 void childTask();
 
-int main(int argc, const char *argv[]){
+int main(int argc, const char *argv[])
+{
 
 	// Creating the pipe
-	if(pipe(pipe_fd) == -1){
+	if (pipe(pipe_fd) == -1)
+	{
 		perror("Cannot create the pipe");
 		exit(EXIT_FAILURE);
 	}
@@ -36,27 +38,32 @@ int main(int argc, const char *argv[]){
 	printf("Atomic operations are guaranteed for message less then %d bytes\n", PIPE_BUF);
 	printf("---------- Forking -----------\n");
 
-	if((child_pid = fork()) == -1){
+	if ((child_pid = fork()) == -1)
+	{
 		perror("Process cannot be fork");
 		exit(EXIT_FAILURE);
 	}
 
-	if(child_pid == 0){
+	if (child_pid == 0)
+	{
 		childTask();
 	}
-	else{
+	else
+	{
 		parentTask();
 	}
 	return 0;
 }
 
-// Process A
-void parentTask(){
+// Process B
+void parentTask()
+{
 	// Close write end
 	close(pipe_fd[1]);
 
 	char buffer[128];
-	if(read(pipe_fd[0], buffer, 128) == -1){
+	if (read(pipe_fd[0], buffer, 128) == -1)
+	{
 		perror("Cannot read pipe");
 		exit(EXIT_FAILURE);
 	}
@@ -65,15 +72,15 @@ void parentTask(){
 	printf("PARENT - Received: %s\n", buffer);
 	exit(EXIT_SUCCESS);
 }
+// Process A
 
-// Process B
-void childTask(){
+void childTask()
+{
 	// Close read end
 	close(pipe_fd[0]);
-
-	char *buffer = "Hello World";
+	// sửa chỗ này
+	char *buffer = "Pham Đuc Thang 20182783";
 	printf("CHILD - Sending : %s\n", buffer);
-
 	write(pipe_fd[1], buffer, strlen(buffer) + 1);
 	close(pipe_fd[1]); // The receiver will receive the EOF
 	exit(EXIT_SUCCESS);

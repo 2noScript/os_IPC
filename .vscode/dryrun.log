@@ -1,0 +1,6 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory '/mnt/f/workspace/IPC-demo'
+make: Leaving directory '/mnt/f/workspace/IPC-demo'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+

@@ -79,6 +79,8 @@ int main(int argc, const char *argv[])
 	{
 		// mapped[i] = '*';
 		// mapped[i]=&argv[i];
+
+		// sửa ở đây
 		if (i < strlen(str))
 		{
 			mapped[i] = str[i];
